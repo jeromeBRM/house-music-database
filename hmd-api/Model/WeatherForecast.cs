@@ -1,6 +1,6 @@
 using System;
 
-namespace hmd_api
+namespace hmd_api.Model
 {
     public class WeatherForecast
     {
