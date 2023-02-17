@@ -8,9 +8,11 @@ namespace hmd_api.Model
     public abstract class Identifiable : IIdentifiable
     {
         private string id;
-        private string tableName;
 
-        public abstract string getId();
+        public string getId()
+        {
+            return this.id;
+        }
 
         public abstract string getTableName();
     }

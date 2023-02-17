@@ -7,7 +7,7 @@ namespace hmd_api.Model
 {
     interface IIdentifiable
     {
-        public abstract string getId();
+        public string getId();
         public abstract string getTableName();
     }
 }
