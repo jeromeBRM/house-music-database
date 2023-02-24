@@ -14,7 +14,7 @@ namespace hmd_api.Model
 
         public override string getDescription()
         {
-            return new String("");
+            return new String("A deep track features a straightforward bassline structure and focuses the listener's attention on low frenquencies. It includes a rich beat presence and a simple, sometimes muffled yet very essential bassline.");
         }
     }
 }
