@@ -29,7 +29,7 @@ namespace hmd_api.Model
             }
             else if (value > Scale.max)
             {
-                this.value = Scale.max
+                this.value = Scale.max;
             }
             else
             {
@@ -38,6 +38,8 @@ namespace hmd_api.Model
         }
 
         public abstract string getName();
+
+        public abstract string getDescription();
 
         public override string getTableName()
         {
