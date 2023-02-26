@@ -20,7 +20,7 @@ namespace hmd_api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseSetting("https_port", "443").UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>().UseUrls("http://*:80");
                 });
     }
 }
