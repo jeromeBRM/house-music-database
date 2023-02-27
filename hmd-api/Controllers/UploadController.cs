@@ -14,7 +14,7 @@ namespace hmd_api.Controllers
     [ApiController]
     public class UploadController : ControllerBase
     {
-        private static string uploadPath = "./uploads";
+        public static string uploadPath = "uploads";
 
         [HttpPost]
         public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> files)
@@ -25,12 +25,7 @@ namespace hmd_api.Controllers
             {
                 if (formFile.Length > 0)
                 {
-                    if (!System.IO.Directory.Exists(UploadController.uploadPath))
-                    {
-                        System.IO.Directory.CreateDirectory(UploadController.uploadPath);
-                    }
-
-                    var filePath = Path.Combine(UploadController.uploadPath, formFile.FileName);
+                    var filePath = Path.Combine(Path.Combine(Directory.GetCurrentDirectory(), UploadController.uploadPath, formFile.FileName));
 
                     using (var stream = System.IO.File.Create(filePath))
                     {
