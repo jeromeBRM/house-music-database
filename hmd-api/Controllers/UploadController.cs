@@ -15,26 +15,38 @@ namespace hmd_api.Controllers
     public class UploadController : ControllerBase
     {
         public static string uploadPath = "uploads";
+        private static string allowedAudioExtension = ".mp3";
 
         [HttpPost]
         public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> files)
         {
             long size = files.Sum(f => f.Length);
 
-            foreach (var formFile in files)
+            int successes = 0;
+            int errors = 0;
+
+            foreach (IFormFile formFile in files)
             {
                 if (formFile.Length > 0)
                 {
-                    var filePath = Path.Combine(Path.Combine(Directory.GetCurrentDirectory(), UploadController.uploadPath, formFile.FileName));
+                    string filePath = Path.Combine(Path.Combine(Directory.GetCurrentDirectory(), UploadController.uploadPath, formFile.FileName));
 
-                    using (var stream = System.IO.File.Create(filePath))
+                    if (System.IO.Path.GetExtension(filePath) == UploadController.allowedAudioExtension)
                     {
-                        await formFile.CopyToAsync(stream);
+                        using (FileStream stream = System.IO.File.Create(filePath))
+                        {
+                            successes++;
+                            await formFile.CopyToAsync(stream);
+                        }
+                    }
+                    else
+                    {
+                        errors++;
                     }
                 }
             }
 
-            return Ok(new { count = files.Count, size });
+            return Ok(new { successes = successes, errors = errors });
         }
     }
 }
