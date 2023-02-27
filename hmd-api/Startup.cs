@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using hmd_api.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -18,6 +22,11 @@ namespace hmd_api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            if (!System.IO.Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), UploadController.uploadPath)))
+            {
+                System.IO.Directory.CreateDirectory(UploadController.uploadPath);
+            }
         }
 
         public IConfiguration Configuration { get; }
@@ -46,6 +55,15 @@ namespace hmd_api
             app.UseCors(
                 options => options.WithOrigins("http://test.infodoo.com").AllowAnyMethod().AllowAnyHeader()
             );
+
+            app.UseStaticFiles();
+
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(
+                                    Path.Combine(Directory.GetCurrentDirectory(), UploadController.uploadPath)),
+                RequestPath = new PathString(Path.Combine("/", UploadController.uploadPath))
+            });
 
             app.UseEndpoints(endpoints =>
             {

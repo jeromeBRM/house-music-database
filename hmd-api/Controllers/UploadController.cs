@@ -14,7 +14,7 @@ namespace hmd_api.Controllers
     [ApiController]
     public class UploadController : ControllerBase
     {
-        private static string uploadPath = "./uploads";
+        public static string uploadPath = "uploads";
         private static string allowedAudioExtension = ".mp3";
 
         [HttpPost]
@@ -29,8 +29,7 @@ namespace hmd_api.Controllers
             {
                 if (formFile.Length > 0)
                 {
-                    string filePath = Path.Combine(UploadController.uploadPath, formFile.FileName);
-                    Console.WriteLine(System.IO.Path.GetExtension(filePath));
+                    string filePath = Path.Combine(Path.Combine(Directory.GetCurrentDirectory(), UploadController.uploadPath, formFile.FileName));
 
                     if (System.IO.Path.GetExtension(filePath) == UploadController.allowedAudioExtension)
                     {
