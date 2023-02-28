@@ -1,28 +1,28 @@
-import { WriteVarExpr } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { PostService } from './services/post.service';
+import { Tracklist } from './model/tracklist';
+import { TracksService } from './services/tracks.service';
 
 @Component({
-  selector: 'app-root',
+  selector: 'hmd-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 
 export class AppComponent implements OnInit {
   title : string = 'hmd-app';
-  tracks : any;
+  tracks : string[] = [''];
 
-  constructor(private service : PostService) {}
+  constructor(private service : TracksService) {}
 
   getTracks() {
-    this.tracks = this.service.getPosts();
+    let response = this.service.getTracks();
+    return response;
   }
 
   ngOnInit(): void {
-    this.service.getPosts()
+    this.service.getTracks()
         .subscribe(response => {
-          this.tracks = response;
-          console.log(this.tracks);
+          this.tracks = response.tracks;
         });
   }
 }

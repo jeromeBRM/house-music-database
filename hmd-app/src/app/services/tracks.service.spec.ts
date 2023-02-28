@@ -2,10 +2,10 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { PostService } from './post.service';
+import { TracksService } from './tracks.service';
 
-describe('PostService', () => {
-  let service: PostService;
+describe('TracksService', () => {
+  let service: TracksService;
 
   beforeEach(async() => {
     await TestBed.configureTestingModule({
@@ -14,7 +14,7 @@ describe('PostService', () => {
         HttpClientTestingModule
       ]
     }).compileComponents();
-    service = TestBed.inject(PostService);
+    service = TestBed.inject(TracksService);
   });
 
   it('should be created', () => {
