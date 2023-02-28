@@ -3,7 +3,11 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    /* Experimental Options */
+    "experimentalDecorators": true, 
+    "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
