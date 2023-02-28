@@ -52,8 +52,10 @@ namespace hmd_api
 
             app.UseAuthorization();
 
+            string[] allowedOrigins = { "http://test.infodoo.com", "http://localhost:4200" };
+
             app.UseCors(
-                options => options.WithOrigins("http://test.infodoo.com").AllowAnyMethod().AllowAnyHeader()
+                options => options.WithOrigins(allowedOrigins).AllowAnyMethod().AllowAnyHeader()
             );
 
             app.UseStaticFiles();
