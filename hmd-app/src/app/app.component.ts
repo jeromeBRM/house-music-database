@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Tracklist } from './model/tracklist';
-import { TracksService } from './services/tracks.service';
+import { TracksService } from './services/tracks/tracks.service';
 
 @Component({
   selector: 'hmd-app',
@@ -9,10 +8,14 @@ import { TracksService } from './services/tracks.service';
 })
 
 export class AppComponent implements OnInit {
-  title : string = 'hmd-app';
-  tracks : string[] = [''];
+  public title : string = 'hmd';
+  public tracks : string[] = [''];
 
   constructor(private service : TracksService) {}
+
+  get getTracksMethod() {
+    return this.ngOnInit.bind(this);
+  }
 
   getTracks() {
     let response = this.service.getTracks();

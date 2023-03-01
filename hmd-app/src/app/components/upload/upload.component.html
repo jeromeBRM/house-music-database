@@ -1,0 +1,6 @@
+<form action="" enctype="multipart/form-data" method="post" style="display: flex; flex-direction: column;">
+    <label>file(s)</label>
+    <input #formFiles type="file" multiple (change)="uploadFiles()"/>
+    <output style="color:green;">successes : {{ successes }}</output>
+    <output style="color:red;">errors : {{ errors }}</output>
+</form>
