@@ -4,4 +4,4 @@
   <li *ngFor="let track of tracks">{{ track }}</li>
 </ul>
 
-<router-outlet></router-outlet>
+<hmd-upload [updateTrackList] = "getTracksMethod"></hmd-upload>
