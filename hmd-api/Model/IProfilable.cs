@@ -2,7 +2,7 @@
 {
     public interface IProfilable
     {
-        public void setProfile(TrackProfile trackProfile);
-        public TrackProfile getProfile();
+        public void SetProfile(TrackProfile trackProfile);
+        public TrackProfile GetProfile();
     }
 }

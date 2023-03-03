@@ -24,17 +24,17 @@ namespace hmd_api.Model
             this.authors = authors;
         }
 
-        public TrackProfile getProfile()
+        public TrackProfile GetProfile()
         {
             return this.trackProfile;
         }
 
-        public void setProfile(TrackProfile trackProfile)
+        public void SetProfile(TrackProfile trackProfile)
         {
             this.trackProfile = trackProfile;
         }
 
-        public override string getTableName()
+        public override string GetTableName()
         {
             return new String("hmd-tracks");
         }

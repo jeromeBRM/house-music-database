@@ -13,17 +13,17 @@ namespace hmd_api.Model
         public TrackProfile(IProfilable profilable)
         {
             this.profilable = profilable;
-            this.setScales();
+            this.SetScales();
         }
 
-        public HashSet<Scale> getScales()
+        public HashSet<Scale> GetScales()
         {
             return this.scales;
         }
 
-        public abstract void setScales();
+        public abstract void SetScales();
 
-        public override string getTableName()
+        public override string GetTableName()
         {
             return new String("hmd-profiles");
         }
