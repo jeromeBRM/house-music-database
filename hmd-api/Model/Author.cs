@@ -14,12 +14,12 @@ namespace hmd_api.Model
             this.name = name;
         }
 
-        public string getName()
+        public string GetName()
         {
             return this.name;
         }
 
-        public override string getTableName()
+        public override string GetTableName()
         {
             return new String("hmd-authors");
         }
@@ -33,7 +33,7 @@ namespace hmd_api.Model
             
             Author author = (Author)obj;
 
-            return this.getName().Equals(author.getName()) || base.Equals(author);
+            return this.GetName().Equals(author.GetName()) || base.Equals(author);
         }
     }
 }

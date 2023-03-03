@@ -13,15 +13,15 @@ namespace hmd_api.Model
 
         public Scale()
         {
-            this.setValue(Scale.min);
+            this.SetValue(Scale.min);
         }
 
-        public int getValue()
+        public int GetValue()
         {
             return this.value;
         }
 
-        public void setValue(int value)
+        public void SetValue(int value)
         {
             if (value < Scale.min)
             {
@@ -37,11 +37,11 @@ namespace hmd_api.Model
             }
         }
 
-        public abstract string getName();
+        public abstract string GetName();
 
-        public abstract string getDescription();
+        public abstract string GetDescription();
 
-        public override string getTableName()
+        public override string GetTableName()
         {
             return new String("hmd-scales");
         }

@@ -9,12 +9,12 @@ namespace hmd_api.Model
     {
         private string id;
 
-        public string getId()
+        public string GetId()
         {
             return this.id;
         }
 
-        public abstract string getTableName();
+        public abstract string GetTableName();
 
         public override bool Equals(Object obj)
         {
@@ -25,7 +25,7 @@ namespace hmd_api.Model
 
             Identifiable identifiable = (Identifiable)obj;
 
-            return this.getId().Equals(identifiable.getId());
+            return this.GetId().Equals(identifiable.GetId());
         }
     }
 }

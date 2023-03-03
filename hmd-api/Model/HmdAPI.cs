@@ -11,7 +11,7 @@ namespace hmd_api.Model
 
         private static HmdAPI instance;
 
-        public static HmdAPI getInstance()
+        public static HmdAPI GetInstance()
         {
             if (HmdAPI.instance == null)
             {
