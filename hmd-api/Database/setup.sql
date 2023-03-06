@@ -1,4 +1,4 @@
-﻿create table api_objects (
+﻿create table if not exists api_objects (
 	id text,
 	type text not null,
 	value text not null,
