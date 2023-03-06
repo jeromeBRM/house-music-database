@@ -9,13 +9,16 @@ namespace hmd_api.Model
 {
     public class SQLiteContext : DbContext
     {
-        public SQLiteContext()
+        private IConfiguration configuration;
+
+        public SQLiteContext(IConfiguration configuration)
         {
+            this.configuration = configuration;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlite(HmdAPI.GetInstance().GetConfiguration().GetConnectionString("WebApiDatabase"));
+            options.UseSqlite(this.configuration.GetConnectionString("WebApiDatabaseSource"));
         }
     }
 }

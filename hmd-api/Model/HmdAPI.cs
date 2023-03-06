@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,7 +18,25 @@ namespace hmd_api.Model
         private HmdAPI(IConfiguration configuration)
         {
             HmdAPI.configuration = configuration;
-            HmdAPI.dbContext = new SQLiteContext();
+            HmdAPI.dbContext = new SQLiteContext(configuration);
+
+            this.SetupDatabase();
+            
+            if (this.InsertIntoDatabaseTest() != 1)
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
+        private void SetupDatabase()
+        {
+            string setupSchemaQuery = File.ReadAllText(HmdAPI.configuration.GetConnectionString("WebApiDatabaseSchema"));
+            HmdAPI.dbContext.Database.ExecuteSqlRaw(setupSchemaQuery);
+        }
+
+        private int InsertIntoDatabaseTest()
+        {
+            return HmdAPI.dbContext.Database.ExecuteSqlRaw("insert into api_objects (id, type, value) values (\"j5d9z5d4\", \"test\", \"hello world!\");");
         }
 
         public IConfiguration GetConfiguration()
@@ -25,7 +44,12 @@ namespace hmd_api.Model
             return HmdAPI.configuration;
         }
 
-        public static HmdAPI GetInstance(IConfiguration configuration)
+        public DbContext GetDbContext()
+        {
+            return HmdAPI.dbContext;
+        }
+
+        public static HmdAPI Create(IConfiguration configuration)
         {
             if (HmdAPI.instance == null)
             {
