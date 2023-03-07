@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using hmd_api.Requests;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -19,24 +20,6 @@ namespace hmd_api.Model
         {
             HmdAPI.configuration = configuration;
             HmdAPI.dbContext = new SQLiteContext(configuration);
-
-            this.SetupDatabase();
-            
-            if (this.InsertIntoDatabaseTest() != 1)
-            {
-                throw new InvalidOperationException();
-            }
-        }
-
-        private void SetupDatabase()
-        {
-            string setupSchemaQuery = File.ReadAllText(HmdAPI.configuration.GetConnectionString("WebApiDatabaseSchema"));
-            HmdAPI.dbContext.Database.ExecuteSqlRaw(setupSchemaQuery);
-        }
-
-        private int InsertIntoDatabaseTest()
-        {
-            return HmdAPI.dbContext.Database.ExecuteSqlRaw("insert into api_objects (id, type, value) values (\"j5d9z5d4\", \"test\", \"hello world!\");");
         }
 
         public IConfiguration GetConfiguration()
