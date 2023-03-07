@@ -22,7 +22,7 @@ namespace hmd_api.Requests
 
         protected abstract string RequestBody();
 
-        public void Execute()
+        public virtual void Execute()
         {
             HmdAPI.GetInstance().GetDbContext().Database.ExecuteSqlRaw(this.RequestBody());
         }

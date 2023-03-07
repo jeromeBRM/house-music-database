@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using hmd_api.Model;
+using hmd_api.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,7 @@ namespace hmd_api.Controllers
         [HttpGet]
         public string Get()
         {
-            HmdAPI.GetInstance().GetDbContext().Database.ExecuteSqlRaw("delete from api_objects");
+            new ClearApiObjectsRequest().Execute();
             return new String("database cleared.");
         }
     }

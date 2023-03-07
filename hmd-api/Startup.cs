@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using hmd_api.Requests;
 
 namespace hmd_api
 {
@@ -26,6 +27,9 @@ namespace hmd_api
             Configuration = configuration;
 
             HmdAPI.Create(configuration);
+
+            new SetupDatabaseRequest().Execute();
+            new InsertNewApiObject(new[] { "x5f9z9qa01", "test", "hello world!" }).Execute();
 
             if (!System.IO.Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), UploadController.uploadPath)))
             {
