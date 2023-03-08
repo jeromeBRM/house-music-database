@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace hmd_api.Model
 {
-    public abstract class TrackProfile : Identifiable
+    public abstract class TrackProfile : ApiObject
     {
         private IProfilable profilable;
         protected HashSet<Scale> scales;
@@ -23,7 +23,7 @@ namespace hmd_api.Model
 
         public abstract void SetScales();
 
-        public override string GetTableName()
+        public override string Type()
         {
             return new String("hmd-profiles");
         }

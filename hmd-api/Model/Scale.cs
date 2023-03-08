@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace hmd_api.Model
 {
-    public abstract class Scale : Identifiable
+    public abstract class Scale : ApiObject
     {
         private int value;
         private static int min = 0;
@@ -41,7 +41,7 @@ namespace hmd_api.Model
 
         public abstract string GetDescription();
 
-        public override string GetTableName()
+        public override string Type()
         {
             return new String("hmd-scales");
         }

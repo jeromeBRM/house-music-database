@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace hmd_api.Model
 {
-    public class Track : Identifiable, IProfilable
+    public class Track : ApiObject, IProfilable
     {
         private string name;
         private HashSet<Author> authors;
@@ -15,7 +15,7 @@ namespace hmd_api.Model
         {
             this.name = name;
             this.authors = new HashSet<Author>();
-            //this.trackProfile = new TrackProfile(this);
+            this.trackProfile = new HouseTrackProfile(this);
         }
 
         public Track(string name, HashSet<Author> authors)
@@ -34,7 +34,7 @@ namespace hmd_api.Model
             this.trackProfile = trackProfile;
         }
 
-        public override string GetTableName()
+        public override string Type()
         {
             return new String("hmd-tracks");
         }
