@@ -8,19 +8,15 @@ using Microsoft.Data.Sqlite;
 
 namespace hmd_api.Requests
 {
-    internal class InsertNewApiObject : Request
+    internal class InsertNewApiObjectRequest : Request
     {
-        public InsertNewApiObject(string[] parameters) : base(parameters)
-        {
-        }
-
-        public override void Execute()
+        public override void Execute(string[] parameters)
         {
             HmdAPI.GetInstance().GetDbContext().Database.ExecuteSqlRaw(
                 this.RequestBody(),
-                new SqliteParameter("@id", base.parameters[0]),
-                new SqliteParameter("@type", base.parameters[1]),
-                new SqliteParameter("@value", base.parameters[2]));
+                new SqliteParameter("@id", parameters[0]),
+                new SqliteParameter("@type", parameters[1]),
+                new SqliteParameter("@value", parameters[2]));
         }
 
         protected override string RequestBody()

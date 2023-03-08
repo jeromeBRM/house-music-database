@@ -9,27 +9,15 @@ namespace hmd_api.Requests
 {
     public abstract class Request : IRequest
     {
-        protected string[] parameters;
-
-        public Request()
-        {
-        }
-
-        public Request(string[] parameters)
-        {
-            this.parameters = parameters;
-        }
-
         protected abstract string RequestBody();
 
-        public virtual void Execute()
+        public void Execute()
         {
             HmdAPI.GetInstance().GetDbContext().Database.ExecuteSqlRaw(this.RequestBody());
         }
 
-        public void SetParameters(string[] parameters)
+        public virtual void Execute(string[] parameters)
         {
-            this.parameters = parameters;
         }
     }
 }

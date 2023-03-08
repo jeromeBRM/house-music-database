@@ -1,6 +1,8 @@
-﻿using System;
+﻿using hmd_api.Requests;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace hmd_api.Model
@@ -9,12 +11,28 @@ namespace hmd_api.Model
     {
         private string id;
 
+        public ApiObject()
+        {
+            this.id = new UniqueId().Get();
+        }
+
         public string Id()
         {
             return this.id;
         }
 
         public abstract string Type();
+
+        public void Export<T>(T apiObject)
+        {
+            new ExportApiObjectRequest().Execute(
+                new string[]
+                {
+                    this.Id(),
+                    this.Type(),
+                    JsonSerializer.Serialize<T>(apiObject)
+                });
+        }
 
         public override bool Equals(Object obj)
         {

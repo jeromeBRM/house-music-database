@@ -29,7 +29,6 @@ namespace hmd_api
             HmdAPI.Create(configuration);
 
             new SetupDatabaseRequest().Execute();
-            new InsertNewApiObject(new[] { "x5f9z9qa01", "test", "hello world!" }).Execute();
 
             if (!System.IO.Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), UploadController.uploadPath)))
             {

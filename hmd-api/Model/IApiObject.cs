@@ -9,5 +9,6 @@ namespace hmd_api.Model
     {
         public string Id();
         public abstract string Type();
+        public abstract void Export<T>(T apiObject);
     }
 }

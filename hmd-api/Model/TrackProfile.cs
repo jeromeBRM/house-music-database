@@ -13,6 +13,7 @@ namespace hmd_api.Model
         public TrackProfile(IProfilable profilable)
         {
             this.profilable = profilable;
+            this.scales = new HashSet<Scale>();
             this.SetScales();
         }
 
