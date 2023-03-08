@@ -7,7 +7,7 @@ namespace hmd_api.Requests
 {
     interface IRequest
     {
-        public void Execute();
-        public void SetParameters(string[] parameters);
+        public abstract void Execute();
+        public abstract void Execute(string[] parameters);
     }
 }

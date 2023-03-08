@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace hmd_api.Model
@@ -9,13 +11,17 @@ namespace hmd_api.Model
     {
         private string name;
         private HashSet<Author> authors;
+        private string source;
         private TrackProfile trackProfile;
 
-        public Track(string name)
+        public string Source { get { return this.source; } set { } }
+
+        public Track(string source) : base()
         {
-            this.name = name;
+            this.source = source;
             this.authors = new HashSet<Author>();
             this.trackProfile = new HouseTrackProfile(this);
+            base.Export<Track>(this);
         }
 
         public Track(string name, HashSet<Author> authors)
