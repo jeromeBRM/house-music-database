@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace hmd_api.Model
 {
-    public class Author : Identifiable
+    public class Author : ApiObject
     {
         private string name;
 
@@ -19,7 +19,7 @@ namespace hmd_api.Model
             return this.name;
         }
 
-        public override string GetTableName()
+        public override string Type()
         {
             return new String("hmd-authors");
         }
