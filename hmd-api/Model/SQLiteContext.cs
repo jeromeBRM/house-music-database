@@ -11,6 +11,7 @@ namespace hmd_api.Model
     public class SQLiteContext : DbContext
     {
         private IConfiguration configuration;
+        public DbSet<SQLApiObject> SQLApiObjects { get; set; }
 
         public SQLiteContext(IConfiguration configuration)
         {

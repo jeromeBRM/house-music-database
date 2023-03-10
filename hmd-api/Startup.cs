@@ -26,7 +26,7 @@ namespace hmd_api
         {
             Configuration = configuration;
 
-            HmdAPI.Create(configuration);
+            HmdAPI.Create(configuration).RestoreState();
 
             new SetupDatabaseRequest().Execute();
 

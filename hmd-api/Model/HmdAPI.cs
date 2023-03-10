@@ -1,4 +1,5 @@
-﻿using hmd_api.Requests;
+﻿using hmd_api.Controllers;
+using hmd_api.Requests;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -14,12 +15,25 @@ namespace hmd_api.Model
         private static HmdAPI instance;
 
         private static IConfiguration configuration;
-        private static DbContext dbContext;
+        private static SQLiteContext dbContext;
+
+        private static LinkedList<IApiObject> apiObjects;
 
         private HmdAPI(IConfiguration configuration)
         {
             HmdAPI.configuration = configuration;
             HmdAPI.dbContext = new SQLiteContext(configuration);
+            HmdAPI.apiObjects = new LinkedList<IApiObject>();
+        }
+
+        public void RestoreState()
+        {
+            string[] files = Directory.GetFiles(UploadController.uploadPath);
+
+            foreach (string file in files)
+            {
+                IApiObject track = new Track(file);
+            }
         }
 
         public IConfiguration GetConfiguration()
@@ -27,7 +41,7 @@ namespace hmd_api.Model
             return HmdAPI.configuration;
         }
 
-        public DbContext GetDbContext()
+        public SQLiteContext GetDbContext()
         {
             return HmdAPI.dbContext;
         }
