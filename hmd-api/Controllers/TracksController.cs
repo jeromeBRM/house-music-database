@@ -17,14 +17,7 @@ namespace hmd_api.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            string[] files = Directory.GetFiles(UploadController.uploadPath);
-
-            foreach(string file in files)
-            {
-                IApiObject track = new Track(file);
-            }
-
-            return Ok(new { tracks = files });
+            return Ok(new GetApiObjectsRequest().Select());
         }
     }
 }

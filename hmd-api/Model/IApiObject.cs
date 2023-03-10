@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace hmd_api.Model
 {
-    interface IApiObject
+    public interface IApiObject
     {
         public string Id();
         public abstract string Type();

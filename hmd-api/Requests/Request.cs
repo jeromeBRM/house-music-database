@@ -19,5 +19,15 @@ namespace hmd_api.Requests
         public virtual void Execute(string[] parameters)
         {
         }
+
+        public virtual List<SQLApiObject> Select()
+        {
+            return new List<SQLApiObject>();
+        }
+
+        public virtual List<SQLApiObject> Select(string[] parameters)
+        {
+            return new List<SQLApiObject>();
+        }
     }
 }
