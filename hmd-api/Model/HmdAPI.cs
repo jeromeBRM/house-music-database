@@ -30,9 +30,11 @@ namespace hmd_api.Model
         {
             string[] files = Directory.GetFiles(UploadController.uploadPath);
 
+            IApiObjectFactory<Track> trackFactory = new ApiObjectFactory<Track>();
+
             foreach (string file in files)
             {
-                IApiObject track = new Track(file);
+                IApiObject track = trackFactory.Create(new SQLApiObject());
             }
         }
 
