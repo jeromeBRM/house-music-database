@@ -27,17 +27,6 @@ namespace hmd_api.Model
         {
         }
 
-        public void Export<T>(T apiObject)
-        {
-            new ExportApiObjectRequest().Execute(
-                new string[]
-                {
-                    this.Id(),
-                    this.Type(),
-                    JsonSerializer.Serialize<T>(apiObject)
-                });
-        }
-
         public override bool Equals(Object obj)
         {
             if (obj == null || this.GetType() != obj.GetType())
