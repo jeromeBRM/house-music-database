@@ -9,6 +9,7 @@ namespace hmd_api.Model
     {
         public string Id();
         public abstract string Type();
+        public abstract void Restore(SQLApiObject sqlApiObject);
         public abstract void Export<T>(T apiObject);
     }
 }

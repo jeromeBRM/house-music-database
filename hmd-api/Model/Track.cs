@@ -16,12 +16,13 @@ namespace hmd_api.Model
 
         public string Source { get { return this.source; } set { } }
 
+        public Track() { }
+
         public Track(string source) : base()
         {
             this.source = source;
             this.authors = new HashSet<Author>();
             this.trackProfile = new HouseTrackProfile(this);
-            base.Export<Track>(this);
         }
 
         public Track(string name, HashSet<Author> authors)

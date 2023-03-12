@@ -23,6 +23,10 @@ namespace hmd_api.Model
 
         public abstract string Type();
 
+        public virtual void Restore(SQLApiObject sqlApiObject)
+        {
+        }
+
         public void Export<T>(T apiObject)
         {
             new ExportApiObjectRequest().Execute(
