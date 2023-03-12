@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace hmd_api.Model
@@ -36,6 +37,17 @@ namespace hmd_api.Model
             {
                 IApiObject track = trackFactory.Create(new SQLApiObject());
             }
+        }
+
+        public void Export<T> (T apiObject) where T : IApiObject
+        {
+            new ExportApiObjectRequest().Execute(
+                new string[]
+                {
+                    apiObject.Id(),
+                    apiObject.Type(),
+                    JsonSerializer.Serialize<T>(apiObject)
+                });
         }
 
         public IConfiguration GetConfiguration()
