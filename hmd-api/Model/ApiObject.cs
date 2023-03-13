@@ -25,6 +25,7 @@ namespace hmd_api.Model
 
         public virtual void Restore(SQLApiObject sqlApiObject)
         {
+            this.id = sqlApiObject.id;
         }
 
         public override bool Equals(Object obj)
