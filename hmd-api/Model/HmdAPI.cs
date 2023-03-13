@@ -35,7 +35,10 @@ namespace hmd_api.Model
 
             foreach (string file in files)
             {
-                IApiObject track = trackFactory.Create(new SQLApiObject());
+                Dictionary<string, object> datas = new Dictionary<string, object>();
+                datas.Add("Source", file);
+                
+                IApiObject track = trackFactory.Create(new SQLApiObject(datas));
             }
         }
 
