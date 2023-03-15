@@ -41,6 +41,12 @@ namespace hmd_api.Model
             this.trackProfile = trackProfile;
         }
 
+        public override void Restore(SQLApiObject sqlApiObject)
+        {
+            base.Restore(sqlApiObject);
+            this.source = sqlApiObject.GetProperty<string>("Source");
+        }
+
         public override string Type()
         {
             return new String("hmd-tracks");
