@@ -31,14 +31,17 @@ namespace hmd_api.Model
         {
             string[] files = Directory.GetFiles(UploadController.uploadPath);
 
+            this.RegisterNewlyAddedTracks(files);
+        }
+
+        private void RegisterNewlyAddedTracks(string[] files)
+        {
             IApiObjectFactory<Track> trackFactory = new ApiObjectFactory<Track>();
 
             foreach (string file in files)
             {
-                Dictionary<string, object> datas = new Dictionary<string, object>();
-                datas.Add("Source", file);
-                
-                IApiObject track = trackFactory.Create(new SQLApiObject(datas));
+                SQLApiObject sqlApiObject = new SQLApiObject().AddProperty("Source", file);
+                IApiObject track = trackFactory.Create(sqlApiObject);
             }
         }
 

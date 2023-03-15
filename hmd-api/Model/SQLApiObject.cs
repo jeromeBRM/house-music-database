@@ -23,14 +23,20 @@ namespace hmd_api.Model
             this.datas = datas;
         }
 
-        public void AddData(string attribute, object o)
+        public SQLApiObject AddProperty(string attribute, object o)
         {
             this.datas.Add(attribute, o);
+            return this;
         }
 
         public Dictionary<string, object> Datas()
         {
             return this.datas;
+        }
+
+        public T GetProperty<T>(string key)
+        {
+            return (T) this.datas.GetValueOrDefault(key);
         }
     }
 }
