@@ -31,7 +31,12 @@ namespace hmd_api.Model
         {
             string[] files = Directory.GetFiles(UploadController.uploadPath);
 
-            this.RegisterNewlyAddedTracks(files);
+            this.RestoreAll<Track>();
+        }
+
+        private List<T> RestoreAll<T>() where T : IApiObject
+        {
+            return new List<T>();
         }
 
         private void RegisterNewlyAddedTracks(string[] files)
