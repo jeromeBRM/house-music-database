@@ -17,7 +17,7 @@ namespace hmd_api.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(new GetApiObjectsRequest().Select());
+            return Ok(HmdAPI.GetInstance().Tracks());
         }
     }
 }

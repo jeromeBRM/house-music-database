@@ -18,29 +18,47 @@ namespace hmd_api.Model
         private static IConfiguration configuration;
         private static SQLiteContext dbContext;
 
-        private static LinkedList<IApiObject> apiObjects;
+        private LinkedList<IApiObject> apiObjects;
+
+        private LinkedList<Track> tracks;
 
         private HmdAPI(IConfiguration configuration)
         {
             HmdAPI.configuration = configuration;
             HmdAPI.dbContext = new SQLiteContext(configuration);
-            HmdAPI.apiObjects = new LinkedList<IApiObject>();
+            this.apiObjects = new LinkedList<IApiObject>();
+            this.tracks = new LinkedList<Track>();
         }
 
         public void RestoreState()
         {
+            //this.RegisterNewlyAddedTracks();
+            this.RestoreAll<Track>().ForEach(track => {
+                this.apiObjects.AddLast(track);
+                this.tracks.AddLast(track);
+            });
+        }
+
+        private List<T> RestoreAll<T>() where T : IApiObject, new()
+        {
+            IApiObjectFactory<T> factory = new ApiObjectFactory<T>();
+
+            List<SQLApiObject> sqlApiObjects = new GetApiObjectsByTypeRequest().Select(new string[] { new Track().Type() });
+
+            List<T> restoredApiObjects = new List<T>();
+
+            foreach (SQLApiObject sqlApiObject in sqlApiObjects)
+            {
+                restoredApiObjects.Add(factory.Create(sqlApiObject));
+            }
+
+            return restoredApiObjects;
+        }
+
+        private void RegisterNewlyAddedTracks()
+        {
             string[] files = Directory.GetFiles(UploadController.uploadPath);
 
-            this.RestoreAll<Track>();
-        }
-
-        private List<T> RestoreAll<T>() where T : IApiObject
-        {
-            return new List<T>();
-        }
-
-        private void RegisterNewlyAddedTracks(string[] files)
-        {
             IApiObjectFactory<Track> trackFactory = new ApiObjectFactory<Track>();
 
             foreach (string file in files)
@@ -69,6 +87,16 @@ namespace hmd_api.Model
         public SQLiteContext GetDbContext()
         {
             return HmdAPI.dbContext;
+        }
+
+        public LinkedList<IApiObject> ApiObjects()
+        {
+            return this.apiObjects;
+        }
+
+        public LinkedList<Track> Tracks()
+        {
+            return this.tracks;
         }
 
         public static HmdAPI Create(IConfiguration configuration)
