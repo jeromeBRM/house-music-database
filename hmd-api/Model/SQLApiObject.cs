@@ -18,14 +18,15 @@ namespace hmd_api.Model
             this.datas = new Dictionary<string, object>();
         }
 
-        public SQLApiObject(Dictionary<string, object> datas)
+        public SQLApiObject(string value)
         {
-            this.datas = datas;
+            this.datas = new Dictionary<string, object>();
+            this.value = value;
         }
 
-        public SQLApiObject AddProperty(string attribute, object o)
+        public SQLApiObject AddProperty<T>(string key, T value)
         {
-            this.datas.Add(attribute, o);
+            this.datas.Add(key, value);
             return this;
         }
 
@@ -36,7 +37,7 @@ namespace hmd_api.Model
 
         public T GetProperty<T>(string key)
         {
-            return (T) this.datas.GetValueOrDefault(key);
+            return (T) this.datas[key];
         }
     }
 }
