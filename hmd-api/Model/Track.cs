@@ -14,7 +14,7 @@ namespace hmd_api.Model
         private string source;
         private TrackProfile trackProfile;
 
-        public string Source { get { return this.source; } set { } }
+        public string Source { get { return this.source; } set { this.source = value; } }
 
         public Track() { }
 
@@ -44,7 +44,12 @@ namespace hmd_api.Model
         public override void Restore(SQLApiObject sqlApiObject)
         {
             base.Restore(sqlApiObject);
-            this.source = sqlApiObject.GetProperty<string>("Source");
+            
+            if (sqlApiObject.value != null)
+            {
+                Track trackDatas = JsonSerializer.Deserialize<Track>(sqlApiObject.value);
+                this.source = trackDatas.Source;
+            }
         }
 
         public override string Type()

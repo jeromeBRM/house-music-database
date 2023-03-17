@@ -32,7 +32,7 @@ namespace hmd_api.Model
 
         public void RestoreState()
         {
-            //this.RegisterNewlyAddedTracks();
+            this.RegisterNewlyAddedTracks();
             this.RestoreAll<Track>().ForEach(track => {
                 this.apiObjects.AddLast(track);
                 this.tracks.AddLast(track);
@@ -43,7 +43,7 @@ namespace hmd_api.Model
         {
             IApiObjectFactory<T> factory = new ApiObjectFactory<T>();
 
-            List<SQLApiObject> sqlApiObjects = new GetApiObjectsByTypeRequest().Select(new string[] { new Track().Type() });
+            List<SQLApiObject> sqlApiObjects = new GetApiObjectsByTypeRequest().Select(new string[] { new T().Type() });
 
             List<T> restoredApiObjects = new List<T>();
 
@@ -63,8 +63,9 @@ namespace hmd_api.Model
 
             foreach (string file in files)
             {
-                SQLApiObject sqlApiObject = new SQLApiObject().AddProperty("Source", file);
-                IApiObject track = trackFactory.Create(sqlApiObject);
+                Track track = new Track(file);
+                SQLApiObject sqlApiObject = new SQLApiObject(JsonSerializer.Serialize<Track>(track));
+                trackFactory.Create(sqlApiObject);
             }
         }
 
