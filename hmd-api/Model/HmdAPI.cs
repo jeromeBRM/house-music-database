@@ -18,25 +18,56 @@ namespace hmd_api.Model
         private static IConfiguration configuration;
         private static SQLiteContext dbContext;
 
-        private LinkedList<IApiObject> apiObjects;
+        private List<IApiObject> apiObjects;
 
-        private LinkedList<Track> tracks;
+        private List<Track> tracks;
 
         private HmdAPI(IConfiguration configuration)
         {
             HmdAPI.configuration = configuration;
             HmdAPI.dbContext = new SQLiteContext(configuration);
-            this.apiObjects = new LinkedList<IApiObject>();
-            this.tracks = new LinkedList<Track>();
+            this.apiObjects = new List<IApiObject>();
+            this.tracks = new List<Track>();
         }
 
         public void RestoreState()
         {
-            this.RegisterNewlyAddedTracks();
+            string[] files = Directory.GetFiles(UploadController.uploadPath);
+
             this.RestoreAll<Track>().ForEach(track => {
-                this.apiObjects.AddLast(track);
-                this.tracks.AddLast(track);
+                if (files.Contains(track.Source))
+                {
+                    // restore
+
+                    this.apiObjects.Add(track);
+                    this.tracks.Add(track);
+                }
+                else
+                {
+                    // delete
+
+                    new DeleteApiObjectRequest().Execute(new string[] { track.Id() });
+                }
             });
+
+            foreach (string file in files)
+            {
+                bool found = false;
+
+                this.tracks.ForEach(track => {
+                    if (file.Equals(track.Source))
+                    {
+                        found = true;
+                    }
+                });
+
+                if (!found)
+                {
+                    // create
+
+                    this.AddNewTrack(file);
+                }
+            }
         }
 
         private List<T> RestoreAll<T>() where T : IApiObject, new()
@@ -55,18 +86,17 @@ namespace hmd_api.Model
             return restoredApiObjects;
         }
 
-        private void RegisterNewlyAddedTracks()
+        private void AddNewTrack(string file)
         {
-            string[] files = Directory.GetFiles(UploadController.uploadPath);
-
             IApiObjectFactory<Track> trackFactory = new ApiObjectFactory<Track>();
 
-            foreach (string file in files)
-            {
-                Track track = new Track(file);
-                SQLApiObject sqlApiObject = new SQLApiObject(JsonSerializer.Serialize<Track>(track));
-                trackFactory.Create(sqlApiObject);
-            }
+            Track track = new Track(file);
+            SQLApiObject sqlApiObject = new SQLApiObject(JsonSerializer.Serialize<Track>(track));
+
+            trackFactory.Create(sqlApiObject);
+
+            this.tracks.Add(track);
+            this.apiObjects.Add(track);
         }
 
         public void Export<T> (T apiObject) where T : IApiObject
@@ -90,12 +120,12 @@ namespace hmd_api.Model
             return HmdAPI.dbContext;
         }
 
-        public LinkedList<IApiObject> ApiObjects()
+        public List<IApiObject> ApiObjects()
         {
             return this.apiObjects;
         }
 
-        public LinkedList<Track> Tracks()
+        public List<Track> Tracks()
         {
             return this.tracks;
         }
