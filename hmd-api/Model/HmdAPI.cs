@@ -35,19 +35,8 @@ namespace hmd_api.Model
             string[] files = Directory.GetFiles(UploadController.uploadPath);
 
             this.RestoreAll<Track>().ForEach(track => {
-                if (files.Contains(track.Source))
-                {
-                    // restore
-
-                    this.apiObjects.Add(track);
-                    this.tracks.Add(track);
-                }
-                else
-                {
-                    // delete
-
-                    new DeleteApiObjectRequest().Execute(new string[] { track.Id() });
-                }
+                this.apiObjects.Add(track);
+                this.tracks.Add(track);
             });
 
             foreach (string file in files)
@@ -63,8 +52,6 @@ namespace hmd_api.Model
 
                 if (!found)
                 {
-                    // create
-
                     this.AddNewTrack(file);
                 }
             }
