@@ -1,2 +1,2 @@
 # house-music-database
-Angular.js application to browse and upload music to a Microsoft server.
+Angular.js application to browse and upload music to an IIS server.
