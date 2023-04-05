@@ -14,12 +14,14 @@ namespace hmd_api.Model
         private string source;
         private TrackProfile trackProfile;
 
+        public string Name { get { return this.name; } set { this.name = value; } }
         public string Source { get { return this.source; } set { this.source = value; } }
 
         public Track() { }
 
         public Track(string source) : base()
         {
+            this.name = "";
             this.source = source;
             this.authors = new HashSet<Author>();
             this.trackProfile = new HouseTrackProfile(this);
@@ -49,6 +51,7 @@ namespace hmd_api.Model
             {
                 Track trackDatas = JsonSerializer.Deserialize<Track>(sqlApiObject.value);
                 this.source = trackDatas.Source;
+                this.name = trackDatas.Name;
             }
         }
 
