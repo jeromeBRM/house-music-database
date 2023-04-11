@@ -26,16 +26,16 @@ namespace hmd_api
         {
             Configuration = configuration;
 
+            if (!System.IO.Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), UploadController.uploadPath)))
+            {
+                System.IO.Directory.CreateDirectory(UploadController.uploadPath);
+            }
+
             HmdAPI.Create(configuration);
 
             new SetupDatabaseRequest().Execute();
 
             HmdAPI.GetInstance().RestoreState();
-
-            if (!System.IO.Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), UploadController.uploadPath)))
-            {
-                System.IO.Directory.CreateDirectory(UploadController.uploadPath);
-            }
         }
 
         public IConfiguration Configuration { get; }
