@@ -26,6 +26,18 @@ namespace hmd_api
         {
             Configuration = configuration;
 
+            // refactor directory/file creation in the future :
+
+            // local.db creation
+
+            if (!System.IO.File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "Database/local.db")))
+            {
+                System.IO.Directory.CreateDirectory("Database");
+                using (FileStream fs = File.Create(Path.Combine(Directory.GetCurrentDirectory(), "Database/local.db")));
+            }
+
+            // uploads directory creation
+
             if (!System.IO.Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), UploadController.uploadPath)))
             {
                 System.IO.Directory.CreateDirectory(UploadController.uploadPath);
