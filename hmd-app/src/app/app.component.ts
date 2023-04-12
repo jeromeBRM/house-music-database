@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TracksService } from './services/tracks/tracks.service';
+import { Track } from './model/track';
 
 @Component({
   selector: 'hmd-app',
@@ -9,7 +10,7 @@ import { TracksService } from './services/tracks/tracks.service';
 
 export class AppComponent implements OnInit {
   public title : string = 'hmd';
-  public tracks : string[] = [''];
+  public tracks : Track[];
 
   constructor(private service : TracksService) {}
 
@@ -25,7 +26,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.service.getTracks()
         .subscribe(response => {
-          this.tracks = response.tracks;
+          this.tracks = response;
         });
   }
 }
