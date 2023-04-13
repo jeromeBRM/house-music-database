@@ -73,7 +73,7 @@ namespace hmd_api.Model
             return restoredApiObjects;
         }
 
-        private void AddNewTrack(string file)
+        public void AddNewTrack(string file)
         {
             IApiObjectFactory<Track> trackFactory = new ApiObjectFactory<Track>();
 
