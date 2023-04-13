@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using hmd_api.Model;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +39,7 @@ namespace hmd_api.Controllers
                             successes++;
                             await formFile.CopyToAsync(stream);
                         }
+                        HmdAPI.GetInstance().AddNewTrack(filePath);
                     }
                     else
                     {
