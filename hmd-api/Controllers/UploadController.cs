@@ -39,7 +39,7 @@ namespace hmd_api.Controllers
                             successes++;
                             await formFile.CopyToAsync(stream);
                         }
-                        HmdAPI.GetInstance().AddNewTrack(filePath);
+                        HmdAPI.GetInstance().AddNewTrack(Path.Combine(UploadController.uploadPath, formFile.FileName));
                     }
                     else
                     {
