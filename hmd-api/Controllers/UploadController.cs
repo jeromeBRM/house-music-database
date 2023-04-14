@@ -30,6 +30,7 @@ namespace hmd_api.Controllers
             {
                 if (formFile.Length > 0)
                 {
+                    int filesCount = Directory.GetFiles(UploadController.uploadPath).Length;
                     string filePath = Path.Combine(Path.Combine(Directory.GetCurrentDirectory(), UploadController.uploadPath, formFile.FileName));
 
                     if (System.IO.Path.GetExtension(filePath) == UploadController.allowedAudioExtension)
@@ -38,8 +39,14 @@ namespace hmd_api.Controllers
                         {
                             successes++;
                             await formFile.CopyToAsync(stream);
+
+                            if (Directory.GetFiles(UploadController.uploadPath).Length > filesCount)
+                            {
+                                // add new track if created
+
+                                HmdAPI.GetInstance().AddNewTrack(Path.Combine(UploadController.uploadPath, formFile.FileName));
+                            }
                         }
-                        HmdAPI.GetInstance().AddNewTrack(Path.Combine(UploadController.uploadPath, formFile.FileName));
                     }
                     else
                     {
