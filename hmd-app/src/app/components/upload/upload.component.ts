@@ -12,8 +12,11 @@ export class UploadComponent implements OnInit {
 
   @Input() updateTrackList : Function;
 
+  private uploadLimit : number = 20000000;
+
   public successes : number = 0;
   public errors : number = 0;
+  public message : string = '';
 
   constructor(private httpClient : HttpClient, private service : UploadService) {}
 
@@ -31,10 +34,24 @@ export class UploadComponent implements OnInit {
         }
     }
 
-    this.service.postFiles(formData).subscribe(response => {
-      this.successes = response.successes;
-      this.errors = response.errors;
-      this.updateTrackList();
-    });
+    let formDataSize = 0;
+
+    for(let pair of formData.entries()) {
+      if (pair[1] instanceof Blob) 
+        formDataSize += pair[1].size;
+      else
+      formDataSize += pair[1].length;
+    }
+
+    if (formDataSize < this.uploadLimit) {
+      this.service.postFiles(formData).subscribe(response => {
+        this.successes = response.successes;
+        this.errors = response.errors;
+        this.updateTrackList();
+        this.message = 'Upload successfull!';
+      });
+    } else {
+      this.message = 'Files are too big! (' + formDataSize + ')';
+    }
   }
 }

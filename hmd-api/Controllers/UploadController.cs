@@ -19,6 +19,7 @@ namespace hmd_api.Controllers
         private static string allowedAudioExtension = ".mp3";
 
         [HttpPost]
+        [RequestSizeLimit(20_000_000)]
         public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> files)
         {
             long size = files.Sum(f => f.Length);
@@ -37,13 +38,13 @@ namespace hmd_api.Controllers
                     {
                         using (FileStream stream = System.IO.File.Create(filePath))
                         {
-                            successes++;
                             await formFile.CopyToAsync(stream);
 
                             if (Directory.GetFiles(UploadController.uploadPath).Length > filesCount)
                             {
                                 // add new track if created
 
+                                successes++;
                                 HmdAPI.GetInstance().AddNewTrack(Path.Combine(UploadController.uploadPath, formFile.FileName));
                             }
                         }
