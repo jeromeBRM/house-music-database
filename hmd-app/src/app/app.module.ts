@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { TrackComponent } from './components/track/track.component';
 import { TracklistComponent } from './components/tracklist/tracklist.component';
 import { UploadComponent } from './components/upload/upload.component';
+import { UpdaterComponent } from './components/updater/updater.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TrackComponent,
     UploadComponent,
-    TracklistComponent
+    TracklistComponent,
+    UpdaterComponent
   ],
   imports: [
     HttpClientModule,
