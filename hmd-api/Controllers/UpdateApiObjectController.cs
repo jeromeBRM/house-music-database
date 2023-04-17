@@ -12,12 +12,24 @@ namespace hmd_api.Controllers
 {
     [Route("update")]
     [ApiController]
+    [EnableCors]
     public class UpdateApiObjectController : ControllerBase
     {
         [HttpPost]
-        public IActionResult Post()
+        public IActionResult Post([FromForm] string apiObjectId, [FromForm] string property, [FromForm] string value)
         {
-            return Ok("updated.");
+            Track track = HmdAPI.GetInstance().GetTrack(apiObjectId);
+
+            // refactor needed
+
+            if (property == "name")
+            {
+                track.Name = value;
+            }
+
+            HmdAPI.GetInstance().Export<Track>(track);
+
+            return Ok();
         }
     }
 }

@@ -91,7 +91,7 @@ namespace hmd_api.Model
             new ExportApiObjectRequest().Execute(
                 new string[]
                 {
-                    apiObject.Id(),
+                    apiObject.GetId(),
                     apiObject.Type(),
                     JsonSerializer.Serialize<T>(apiObject)
                 });
@@ -115,6 +115,20 @@ namespace hmd_api.Model
         public List<Track> Tracks()
         {
             return this.tracks;
+        }
+
+        public Track GetTrack(string id)
+        {
+            Track track = null;
+
+            foreach(Track t in this.Tracks())
+            {
+                if (t.Id.Equals(id))
+                {
+                    track = t;
+                }
+            }
+            return track;
         }
 
         public static HmdAPI Create(IConfiguration configuration)

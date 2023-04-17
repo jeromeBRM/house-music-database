@@ -11,14 +11,11 @@ namespace hmd_api.Model
     {
         private string id;
 
+        public string Id { get { return this.id; } set { this.id = value; } }
+
         public ApiObject()
         {
             this.id = new UniqueId().Get();
-        }
-
-        public string Id()
-        {
-            return this.id;
         }
 
         public abstract string Type();
@@ -40,7 +37,12 @@ namespace hmd_api.Model
 
             ApiObject apiObject = (ApiObject)obj;
 
-            return this.Id().Equals(apiObject.Id());
+            return this.GetId().Equals(apiObject.GetId());
+        }
+
+        public string GetId()
+        {
+            return this.Id;
         }
     }
 }

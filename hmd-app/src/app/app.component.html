@@ -2,8 +2,7 @@
   
 <ul>
   <li *ngFor="let track of tracks">
-    <hmd-updater></hmd-updater>
-    <input type="text" value="{{ track.name }}">
+    <hmd-updater [id]="track.id" property="name" [value]="track.name"></hmd-updater>
     {{ track.source }}
   </li>
 </ul>
