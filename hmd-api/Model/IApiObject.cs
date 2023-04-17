@@ -7,7 +7,7 @@ namespace hmd_api.Model
 {
     public interface IApiObject
     {
-        public string Id();
+        public string GetId();
         public abstract string Type();
         public abstract void Restore(SQLApiObject sqlApiObject);
     }

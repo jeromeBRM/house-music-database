@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export abstract class Service {
   private apiUrls : { [key: string]: string } = {
+    'pre-development' : 'https://localhost:44388/',
     'development' : 'http://localhost/',
     'production' : 'http://90.54.173.2/'
   }
