@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace hmd_api.Model
 {
-    public abstract class TrackProfile : ApiObject
+    public class TrackProfile : ApiObject
     {
-        private IProfilable profilable;
         protected HashSet<Scale> scales;
 
-        public TrackProfile(IProfilable profilable)
+        public TrackProfile() { }
+
+        public TrackProfile(string profilableId) : base()
         {
-            this.profilable = profilable;
             this.scales = new HashSet<Scale>();
             this.SetScales();
         }
@@ -22,7 +23,15 @@ namespace hmd_api.Model
             return this.scales;
         }
 
-        public abstract void SetScales();
+        public virtual void SetScales()
+        {
+
+        }
+
+        public override void Restore(SQLApiObject sqlApiObject)
+        {
+            base.Restore(sqlApiObject);
+        }
 
         public override string Type()
         {
