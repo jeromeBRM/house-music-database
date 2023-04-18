@@ -11,7 +11,6 @@ namespace hmd_api.Model
         {
             T apiObject = new T();
             apiObject.Restore(sqlApiObject);
-            HmdAPI.GetInstance().Export<T>(apiObject);
             return apiObject;
         }
     }

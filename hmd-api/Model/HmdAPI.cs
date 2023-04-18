@@ -36,14 +36,17 @@ namespace hmd_api.Model
 
         public void RestoreState()
         {
-            string[] files = Directory.GetFiles(UploadController.uploadPath);
+            this.RestoreAll<TrackProfile>().ForEach(trackProfile => {
+                this.apiObjects.Add(trackProfile);
+                this.trackProfiles.Add(trackProfile);
+            });
 
             this.RestoreAll<Track>().ForEach(track => {
                 this.apiObjects.Add(track);
                 this.tracks.Add(track);
             });
 
-            foreach (string file in files)
+            foreach (string file in Directory.GetFiles(UploadController.uploadPath))
             {
                 bool found = false;
 
@@ -79,15 +82,26 @@ namespace hmd_api.Model
 
         public void AddNewTrack(string file)
         {
-            IApiObjectFactory<Track> trackFactory = new ApiObjectFactory<Track>();
-
             Track track = new Track(file);
-            SQLApiObject sqlApiObject = new SQLApiObject(JsonSerializer.Serialize<Track>(track));
 
-            trackFactory.Create(sqlApiObject);
+            this.AddNewTrackProfile(track);
 
             this.tracks.Add(track);
             this.apiObjects.Add(track);
+
+            Export(track);
+        }
+
+        public void AddNewTrackProfile(Track track)
+        {
+            TrackProfile trackProfile = new HouseTrackProfile(track.Id);
+
+            track.TrackProfile = trackProfile.Id;
+
+            this.trackProfiles.Add(trackProfile);
+            this.apiObjects.Add(trackProfile);
+
+            Export(trackProfile);
         }
 
         public void Export<T> (T apiObject) where T : IApiObject
@@ -138,6 +152,20 @@ namespace hmd_api.Model
                 }
             }
             return track;
+        }
+
+        public TrackProfile GetTrackProfile(string id)
+        {
+            TrackProfile trackProfile = null;
+
+            foreach (TrackProfile tp in this.TrackProfiles())
+            {
+                if (tp.Id.Equals(id))
+                {
+                    trackProfile = tp;
+                }
+            }
+            return trackProfile;
         }
 
         public static HmdAPI Create(IConfiguration configuration)

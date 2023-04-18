@@ -7,7 +7,7 @@ namespace hmd_api.Model
 {
     public class HouseTrackProfile : TrackProfile
     {
-        public HouseTrackProfile(IProfilable profilable) : base(profilable)
+        public HouseTrackProfile(string profilableId) : base(profilableId)
         {
         }
 

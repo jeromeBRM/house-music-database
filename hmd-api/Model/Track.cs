@@ -7,15 +7,25 @@ using System.Threading.Tasks;
 
 namespace hmd_api.Model
 {
-    public class Track : ApiObject, IProfilable
+    public class Track : ApiObject
     {
         private string name;
         private HashSet<Author> authors;
         private string source;
-        private TrackProfile trackProfile;
+        private string trackProfile;
 
         public string Name { get { return this.name; } set { this.name = value; } }
         public string Source { get { return this.source; } set { this.source = value; } }
+        public string TrackProfile {
+            get
+            {
+                return trackProfile;
+            }
+            set
+            {
+                this.trackProfile = value;
+            }
+        }
 
         public Track() { }
 
@@ -23,24 +33,16 @@ namespace hmd_api.Model
         {
             this.name = "";
             this.source = source;
-            this.authors = new HashSet<Author>();
-            this.trackProfile = new HouseTrackProfile(this);
-        }
-
-        public Track(string name, HashSet<Author> authors)
-        {
-            this.name = name;
-            this.authors = authors;
         }
 
         public TrackProfile GetProfile()
         {
-            return this.trackProfile;
+            return HmdAPI.GetInstance().GetTrackProfile(this.trackProfile);
         }
 
         public void SetProfile(TrackProfile trackProfile)
         {
-            this.trackProfile = trackProfile;
+            this.trackProfile = trackProfile.Id;
         }
 
         public override void Restore(SQLApiObject sqlApiObject)
@@ -50,8 +52,9 @@ namespace hmd_api.Model
             if (sqlApiObject.value != null)
             {
                 Track trackDatas = JsonSerializer.Deserialize<Track>(sqlApiObject.value);
-                this.source = trackDatas.Source;
-                this.name = trackDatas.Name;
+                this.Source = trackDatas.Source;
+                this.Name = trackDatas.Name;
+                this.TrackProfile = trackDatas.TrackProfile;
             }
         }
 
