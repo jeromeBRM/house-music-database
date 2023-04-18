@@ -20,14 +20,18 @@ namespace hmd_api.Model
 
         private List<IApiObject> apiObjects;
 
+        // api objects
         private List<Track> tracks;
+        private List<TrackProfile> trackProfiles;
 
         private HmdAPI(IConfiguration configuration)
         {
             HmdAPI.configuration = configuration;
             HmdAPI.dbContext = new SQLiteContext(configuration);
+            
             this.apiObjects = new List<IApiObject>();
             this.tracks = new List<Track>();
+            this.trackProfiles = new List<TrackProfile>();
         }
 
         public void RestoreState()
@@ -115,6 +119,11 @@ namespace hmd_api.Model
         public List<Track> Tracks()
         {
             return this.tracks;
+        }
+
+        public List<TrackProfile> TrackProfiles()
+        {
+            return this.trackProfiles;
         }
 
         public Track GetTrack(string id)
