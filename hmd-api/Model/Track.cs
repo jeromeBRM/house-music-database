@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace hmd_api.Model
 {
@@ -12,18 +9,18 @@ namespace hmd_api.Model
         private string name;
         private HashSet<Author> authors;
         private string source;
-        private string trackProfile;
+        private TrackProfile trackProfile;
 
         public string Name { get { return this.name; } set { this.name = value; } }
         public string Source { get { return this.source; } set { this.source = value; } }
         public string TrackProfile {
             get
             {
-                return trackProfile;
+                return trackProfile.Id;
             }
             set
             {
-                this.trackProfile = value;
+                this.trackProfile = HmdAPI.GetInstance().GetTrackProfile(value);
             }
         }
 
@@ -33,16 +30,18 @@ namespace hmd_api.Model
         {
             this.name = "";
             this.source = source;
+            this.trackProfile = new HouseTrackProfile(this.Id);
+            HmdAPI.GetInstance().AddNewTrackProfile(this.trackProfile);
         }
 
         public TrackProfile GetProfile()
         {
-            return HmdAPI.GetInstance().GetTrackProfile(this.trackProfile);
+            return this.trackProfile;
         }
 
         public void SetProfile(TrackProfile trackProfile)
         {
-            this.trackProfile = trackProfile.Id;
+            this.trackProfile = trackProfile;
         }
 
         public override void Restore(SQLApiObject sqlApiObject)
