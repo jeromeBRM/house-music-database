@@ -23,6 +23,7 @@ namespace hmd_api.Model
         // api objects
         private List<Track> tracks;
         private List<TrackProfile> trackProfiles;
+        private List<Scale> scales;
 
         private HmdAPI(IConfiguration configuration)
         {
@@ -32,6 +33,7 @@ namespace hmd_api.Model
             this.apiObjects = new List<IApiObject>();
             this.tracks = new List<Track>();
             this.trackProfiles = new List<TrackProfile>();
+            this.scales = new List<Scale>();
         }
 
         public void RestoreState()
@@ -138,6 +140,11 @@ namespace hmd_api.Model
         public List<TrackProfile> TrackProfiles()
         {
             return this.trackProfiles;
+        }
+
+        public List<Scale> Scales()
+        {
+            return this.scales;
         }
 
         public Track GetTrack(string id)
