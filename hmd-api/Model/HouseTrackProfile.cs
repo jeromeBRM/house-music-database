@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace hmd_api.Model
+﻿namespace hmd_api.Model
 {
     public class HouseTrackProfile : TrackProfile
     {

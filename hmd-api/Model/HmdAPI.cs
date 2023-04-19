@@ -1,13 +1,10 @@
 ﻿using hmd_api.Controllers;
 using hmd_api.Requests;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace hmd_api.Model
 {
@@ -38,6 +35,11 @@ namespace hmd_api.Model
 
         public void RestoreState()
         {
+            this.RestoreAll<Scale>().ForEach(scale => {
+                this.apiObjects.Add(scale);
+                this.scales.Add(scale);
+            });
+
             this.RestoreAll<TrackProfile>().ForEach(trackProfile => {
                 this.apiObjects.Add(trackProfile);
                 this.trackProfiles.Add(trackProfile);
@@ -82,11 +84,20 @@ namespace hmd_api.Model
             return restoredApiObjects;
         }
 
+        /*  to refactor :
+         * 
+         *  public void AddNew<T>(T apiObject) {
+         *      this.TList.Add(apiObject);
+         *      this.apiObjects.Add(apiObject);
+         *      
+         *      Export<T>(apiObject);
+         *  }
+         * 
+         */
+
         public void AddNewTrack(string file)
         {
             Track track = new Track(file);
-
-            this.AddNewTrackProfile(track);
 
             this.tracks.Add(track);
             this.apiObjects.Add(track);
@@ -94,17 +105,24 @@ namespace hmd_api.Model
             Export(track);
         }
 
-        public void AddNewTrackProfile(Track track)
+        public void AddNewTrackProfile(TrackProfile trackProfile)
         {
-            TrackProfile trackProfile = new HouseTrackProfile(track.Id);
-
-            track.TrackProfile = trackProfile.Id;
-
             this.trackProfiles.Add(trackProfile);
             this.apiObjects.Add(trackProfile);
 
             Export(trackProfile);
         }
+        public void AddNewScale(Scale scale)
+        {
+            this.scales.Add(scale);
+            this.apiObjects.Add(scale);
+
+            Export(scale);
+        }
+
+        /*  end of refactoring
+         *  
+         */
 
         public void Export<T> (T apiObject) where T : IApiObject
         {
@@ -147,6 +165,23 @@ namespace hmd_api.Model
             return this.scales;
         }
 
+        /*  to refactor :
+         * 
+         *  public T Get<T>(string id) {
+         *      T apiObject = null;
+         *
+         *      foreach(T ao in this.ApiObjects())
+         *      {
+         *          if (ao.Id.Equals(id))
+         *          {
+         *              apiObject = ao;
+         *          }
+         *      }
+         *      return apiObject;
+         *  }
+         * 
+         */
+
         public Track GetTrack(string id)
         {
             Track track = null;
@@ -174,6 +209,24 @@ namespace hmd_api.Model
             }
             return trackProfile;
         }
+
+        public Scale GetScale(string id)
+        {
+            Scale scale = null;
+
+            foreach (Scale s in this.Scales())
+            {
+                if (s.Id.Equals(id))
+                {
+                    scale = s;
+                }
+            }
+            return scale;
+        }
+
+        /*  end of refactoring
+         *  
+         */
 
         public static HmdAPI Create(IConfiguration configuration)
         {

@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace hmd_api.Model
 {
-    public abstract class Scale : ApiObject
+    public class Scale : ApiObject
     {
         private int value;
         private static int min = 0;
         private static int max = 100;
+
+        public int Value { get { return this.value; } set { this.SetValue(value); } }
 
         public Scale()
         {
@@ -37,9 +36,15 @@ namespace hmd_api.Model
             }
         }
 
-        public abstract string GetName();
+        public virtual string GetName()
+        {
+            return new String("undefined");
+        }
 
-        public abstract string GetDescription();
+        public virtual string GetDescription()
+        {
+            return new String("undefined");
+        }
 
         public override string Type()
         {
