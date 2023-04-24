@@ -1,12 +1,13 @@
 <h1>{{ title }}</h1>
-  
+
+<hmd-tracklist></hmd-tracklist>
+
 <ul>
   <li *ngFor="let track of tracks">
     <hmd-updater [id]="track.id" property="name" [value]="track.name"></hmd-updater>
     {{ track.source }}
+    <hmd-track-profile [id]="track.trackProfile"></hmd-track-profile>
   </li>
 </ul>
-
-<hmd-tracklist></hmd-tracklist>
 
 <hmd-upload [updateTrackList] = "getTracksMethod"></hmd-upload>
