@@ -15,9 +15,9 @@ namespace hmd_api.Controllers
     public class ScalesController : ControllerBase
     {
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(string id)
         {
-            return Ok(HmdAPI.GetInstance().Scales());
+            return id == null ? Ok(HmdAPI.GetInstance().Scales()) : Ok(HmdAPI.GetInstance().GetScale(id));
         }
     }
 }
