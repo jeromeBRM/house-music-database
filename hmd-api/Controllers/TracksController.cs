@@ -15,9 +15,9 @@ namespace hmd_api.Controllers
     public class TracksController : ControllerBase
     {
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(string id)
         {
-            return Ok(HmdAPI.GetInstance().Tracks());
+            return id == null ? Ok(HmdAPI.GetInstance().Tracks()) : Ok(HmdAPI.GetInstance().GetTrack(id));
         }
     }
 }
