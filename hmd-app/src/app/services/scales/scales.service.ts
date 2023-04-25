@@ -6,9 +6,9 @@ import { Scale } from '../../model/scale';
   providedIn: 'root'
 })
 export class ScalesService extends Service {
-  private apiEndPoint = 'scales';
+  private apiEndPoint = 'scales?id=';
 
-  getScales(id : string) {
-    return this.httpClient.get<Scale[]>(this.inUse + this.apiEndPoint);
+  getScale(id : string) {
+    return this.httpClient.get<Scale>(this.inUse + this.apiEndPoint + id);
   }
 }

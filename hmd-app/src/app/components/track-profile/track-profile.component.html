@@ -1,6 +1,6 @@
 <h3>{{ id }}</h3>
 
-<ul>
+<ul *ngIf="trackProfile">
     <li *ngFor="let scale of scales">
         {{ scale.id }}
         {{ scale.value }}
