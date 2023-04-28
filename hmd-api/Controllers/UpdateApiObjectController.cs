@@ -18,16 +18,34 @@ namespace hmd_api.Controllers
         [HttpPost]
         public IActionResult Post([FromForm] string apiObjectId, [FromForm] string property, [FromForm] string value)
         {
-            Track track = HmdAPI.GetInstance().GetTrack(apiObjectId);
+            /* 
+             * refactor needed!
+             * 
+             */
 
-            // refactor needed
-
-            if (property == "name")
+            if (HmdAPI.GetInstance().GetTrack(apiObjectId) != null)
             {
-                track.Name = value;
+                Track track = HmdAPI.GetInstance().GetTrack(apiObjectId);
+
+                if (property == "name")
+                {
+                    track.Name = value;
+                }
+
+                HmdAPI.GetInstance().Export<Track>(track);
             }
 
-            HmdAPI.GetInstance().Export<Track>(track);
+            else if (HmdAPI.GetInstance().GetScale(apiObjectId) != null)
+            {
+                Scale scale = HmdAPI.GetInstance().GetScale(apiObjectId);
+
+                if (property == "value")
+                {
+                    scale.Value = int.Parse(value);
+                }
+
+                HmdAPI.GetInstance().Export<Scale>(scale);
+            }
 
             return Ok();
         }
