@@ -3,6 +3,6 @@
 <ul *ngIf="trackProfile">
     <li *ngFor="let scale of scales">
         {{ scale.id }}
-        {{ scale.value }}
+        <hmd-updater [id]="scale.id" property="value" [value]="scale.value"></hmd-updater>
     </li>
 </ul>
