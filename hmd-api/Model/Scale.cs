@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json;
 
 namespace hmd_api.Model
 {
@@ -44,6 +45,17 @@ namespace hmd_api.Model
         public virtual string GetDescription()
         {
             return new String("undefined");
+        }
+
+        public override void Restore(SQLApiObject sqlApiObject)
+        {
+            base.Restore(sqlApiObject);
+
+            if (sqlApiObject.value != null)
+            {
+                Scale trackDatas = JsonSerializer.Deserialize<Scale>(sqlApiObject.value);
+                this.Value = trackDatas.Value;
+            }
         }
 
         public override string Type()

@@ -9,6 +9,7 @@ import { TracklistComponent } from './components/tracklist/tracklist.component';
 import { UploadComponent } from './components/upload/upload.component';
 import { UpdaterComponent } from './components/updater/updater.component';
 import { TrackProfileComponent } from './components/track-profile/track-profile.component';
+import { ScaleComponent } from './components/scale/scale.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { TrackProfileComponent } from './components/track-profile/track-profile.
     UploadComponent,
     TracklistComponent,
     UpdaterComponent,
-    TrackProfileComponent
+    TrackProfileComponent,
+    ScaleComponent
   ],
   imports: [
     HttpClientModule,
