@@ -33,6 +33,27 @@ namespace hmd_api.Model
             this.scales = new List<Scale>();
         }
 
+        public void CreateBackup()
+        {
+            /*
+             * to refactor
+             * 
+             */
+
+            string separator = "_";
+
+            string prefix = DateTime.Now.ToString()
+                .Replace("/", separator)
+                .Replace(":", separator)
+                .Replace(" ", separator)
+                + separator;
+
+            string file = Path.Combine(Directory.GetCurrentDirectory(), "Database/local.db");
+            string destination = Path.Combine(Directory.GetCurrentDirectory(), "Backup/" + prefix + "local.db");
+
+            File.Copy(file, destination);
+        }
+
         public void RestoreState()
         {
             this.RestoreAll<Scale>().ForEach(scale => {
