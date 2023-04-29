@@ -39,14 +39,13 @@ namespace hmd_api.Controllers
                         using (FileStream stream = System.IO.File.Create(filePath))
                         {
                             await formFile.CopyToAsync(stream);
+                        }
+                        if (Directory.GetFiles(UploadController.uploadPath).Length > filesCount)
+                        {
+                            // add new track if created
 
-                            if (Directory.GetFiles(UploadController.uploadPath).Length > filesCount)
-                            {
-                                // add new track if created
-
-                                successes++;
-                                HmdAPI.GetInstance().AddNewTrack(Path.Combine(UploadController.uploadPath, formFile.FileName));
-                            }
+                            HmdAPI.GetInstance().AddNewTrack(formFile.FileName);
+                            successes++;
                         }
                     }
                     else
