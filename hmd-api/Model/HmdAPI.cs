@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using System.Timers;
 
 namespace hmd_api.Model
 {
@@ -31,9 +32,20 @@ namespace hmd_api.Model
             this.tracks = new List<Track>();
             this.trackProfiles = new List<TrackProfile>();
             this.scales = new List<Scale>();
+
+            this.StartScheduledServices();
         }
 
-        public void CreateBackup()
+        public void StartScheduledServices()
+        {
+            // create a backup every 24 hours
+
+            Timer t = new Timer(24 * 60 * 60 * 1000);
+            t.Elapsed += new ElapsedEventHandler(CreateBackup);
+            t.Start();
+        }
+
+        private void CreateBackup(object source, ElapsedEventArgs e)
         {
             /*
              * to refactor
@@ -122,6 +134,16 @@ namespace hmd_api.Model
 
             this.tracks.Add(track);
             this.apiObjects.Add(track);
+
+            /*
+             * to refactor
+             * 
+             */
+
+            string origin = Path.Combine(Directory.GetCurrentDirectory(), "uploads", track.Source);
+            string destination = Path.Combine(Directory.GetCurrentDirectory(), "Backup/uploads", track.Source);
+
+            File.Copy(origin, destination);
 
             Export(track);
         }

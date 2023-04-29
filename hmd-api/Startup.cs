@@ -43,6 +43,11 @@ namespace hmd_api
                 System.IO.Directory.CreateDirectory("Backup");
             }
 
+            if (!System.IO.Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "Backup/uploads")))
+            {
+                System.IO.Directory.CreateDirectory("Backup/uploads");
+            }
+
             // uploads directory creation
 
             if (!System.IO.Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), UploadController.uploadPath)))
