@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using System.Timers;
 
 namespace hmd_api.Model
 {
@@ -31,6 +32,38 @@ namespace hmd_api.Model
             this.tracks = new List<Track>();
             this.trackProfiles = new List<TrackProfile>();
             this.scales = new List<Scale>();
+
+            this.StartScheduledServices();
+        }
+
+        public void StartScheduledServices()
+        {
+            // create a backup every 24 hours
+
+            Timer t = new Timer(24 * 60 * 60 * 1000);
+            t.Elapsed += new ElapsedEventHandler(CreateBackup);
+            t.Start();
+        }
+
+        private void CreateBackup(object source, ElapsedEventArgs e)
+        {
+            /*
+             * to refactor
+             * 
+             */
+
+            string separator = "_";
+
+            string prefix = DateTime.Now.ToString()
+                .Replace("/", separator)
+                .Replace(":", separator)
+                .Replace(" ", separator)
+                + separator;
+
+            string file = Path.Combine(Directory.GetCurrentDirectory(), "Database/local.db");
+            string destination = Path.Combine(Directory.GetCurrentDirectory(), "Backup/" + prefix + "local.db");
+
+            File.Copy(file, destination);
         }
 
         public void RestoreState()
@@ -101,6 +134,16 @@ namespace hmd_api.Model
 
             this.tracks.Add(track);
             this.apiObjects.Add(track);
+
+            /*
+             * to refactor
+             * 
+             */
+
+            string origin = Path.Combine(Directory.GetCurrentDirectory(), "uploads", track.Source);
+            string destination = Path.Combine(Directory.GetCurrentDirectory(), "Backup/uploads", track.Source);
+
+            File.Copy(origin, destination);
 
             Export(track);
         }

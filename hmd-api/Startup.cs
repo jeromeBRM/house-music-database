@@ -36,6 +36,18 @@ namespace hmd_api
                 using (FileStream fs = File.Create(Path.Combine(Directory.GetCurrentDirectory(), "Database/local.db")));
             }
 
+            // backup directory creation
+
+            if (!System.IO.Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "Backup")))
+            {
+                System.IO.Directory.CreateDirectory("Backup");
+            }
+
+            if (!System.IO.Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "Backup/uploads")))
+            {
+                System.IO.Directory.CreateDirectory("Backup/uploads");
+            }
+
             // uploads directory creation
 
             if (!System.IO.Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), UploadController.uploadPath)))
