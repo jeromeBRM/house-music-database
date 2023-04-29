@@ -1,5 +1,7 @@
-﻿using System;
+﻿using hmd_api.Controllers;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text.Json;
 
 namespace hmd_api.Model
@@ -29,7 +31,7 @@ namespace hmd_api.Model
         public Track(string source) : base()
         {
             this.name = "";
-            this.source = source;
+            this.RenameFile(source);
             this.trackProfile = new HouseTrackProfile(this.Id);
             HmdAPI.GetInstance().AddNewTrackProfile(this.trackProfile);
         }
@@ -42,6 +44,17 @@ namespace hmd_api.Model
         public void SetProfile(TrackProfile trackProfile)
         {
             this.trackProfile = trackProfile;
+        }
+
+        private void RenameFile(string source)
+        {
+            string newName = this.Id + "_" + source;
+
+            string oldPath = Path.Combine(Directory.GetCurrentDirectory(), UploadController.uploadPath, source);
+            string newPath = Path.Combine(Directory.GetCurrentDirectory(), UploadController.uploadPath, newName);
+
+            File.Move(oldPath, newPath);
+            this.Source = newName;
         }
 
         public override void Restore(SQLApiObject sqlApiObject)
