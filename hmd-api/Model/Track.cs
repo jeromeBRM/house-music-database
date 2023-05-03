@@ -31,7 +31,7 @@ namespace hmd_api.Model
         public Track(string source) : base()
         {
             this.name = "";
-            this.RenameFile(source);
+            this.Source = source;
             this.trackProfile = new HouseTrackProfile(this.Id);
             HmdAPI.GetInstance().AddNewTrackProfile(this.trackProfile);
         }
@@ -46,15 +46,33 @@ namespace hmd_api.Model
             this.trackProfile = trackProfile;
         }
 
-        private void RenameFile(string source)
+        public void RenameFile()
         {
-            string newName = this.Id + "_" + source;
+            string newName = this.Id + "_" + this.Source;
 
             string oldPath = Path.Combine(Directory.GetCurrentDirectory(), UploadController.uploadPath, source);
             string newPath = Path.Combine(Directory.GetCurrentDirectory(), UploadController.uploadPath, newName);
 
             File.Move(oldPath, newPath);
+
             this.Source = newName;
+
+            HmdAPI.GetInstance().Export(this);
+
+            this.Backup();
+        }
+
+        public void Backup()
+        {
+            /*
+             * to refactor
+             * 
+             */
+
+            string origin = Path.Combine(Directory.GetCurrentDirectory(), "uploads", this.Source);
+            string destination = Path.Combine(Directory.GetCurrentDirectory(), "Backup/uploads", this.Source);
+
+            File.Copy(origin, destination);
         }
 
         public override void Restore(SQLApiObject sqlApiObject)

@@ -83,8 +83,10 @@ namespace hmd_api.Model
                 this.tracks.Add(track);
             });
 
-            foreach (string file in Directory.GetFiles(UploadController.uploadPath))
+            foreach (string path in Directory.GetFiles(UploadController.uploadPath))
             {
+                string file = Path.GetFileName(path);
+
                 bool found = false;
 
                 this.tracks.ForEach(track => {
@@ -128,24 +130,16 @@ namespace hmd_api.Model
          * 
          */
 
-        public void AddNewTrack(string file)
+        public Track AddNewTrack(string file)
         {
             Track track = new Track(file);
 
             this.tracks.Add(track);
             this.apiObjects.Add(track);
 
-            /*
-             * to refactor
-             * 
-             */
-
-            string origin = Path.Combine(Directory.GetCurrentDirectory(), "uploads", track.Source);
-            string destination = Path.Combine(Directory.GetCurrentDirectory(), "Backup/uploads", track.Source);
-
-            File.Copy(origin, destination);
-
             Export(track);
+
+            return track;
         }
 
         public void AddNewTrackProfile(TrackProfile trackProfile)

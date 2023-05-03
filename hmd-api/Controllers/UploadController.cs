@@ -44,7 +44,7 @@ namespace hmd_api.Controllers
                         {
                             // add new track if created
 
-                            HmdAPI.GetInstance().AddNewTrack(formFile.FileName);
+                            HmdAPI.GetInstance().AddNewTrack(formFile.FileName).RenameFile();
                             successes++;
                         }
                     }
