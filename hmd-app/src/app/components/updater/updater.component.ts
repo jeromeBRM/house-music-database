@@ -11,6 +11,7 @@ export class UpdaterComponent {
 
   @Input() public id : string;
   @Input() public property : string;
+  @Input() public type : any;
   @Input() public value : any;
 
   constructor(private service : UpdaterService) {}
