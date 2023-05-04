@@ -16,5 +16,10 @@ namespace hmd_api.Model
         {
             return new String("A deep track features a straightforward bassline structure and focuses the listener's attention on low frenquencies. It includes a rich beat presence and a simple, sometimes muffled yet very essential bassline.");
         }
+
+        public override string Type()
+        {
+            return new String("hmd-deep-scales");
+        }
     }
 }

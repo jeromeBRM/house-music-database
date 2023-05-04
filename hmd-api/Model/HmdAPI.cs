@@ -68,7 +68,16 @@ namespace hmd_api.Model
 
         public void RestoreState()
         {
-            this.RestoreAll<Scale>().ForEach(scale => {
+            /*
+             * to refactor :
+             */
+
+            List<Scale> scales = RestoreAll<Scale>();
+            scales.AddRange(RestoreAll<DeepScale>());
+            scales.AddRange(RestoreAll<DreamScale>());
+            scales.AddRange(RestoreAll<DecayScale>());
+              
+            scales.ForEach(scale => {
                 this.apiObjects.Add(scale);
                 this.scales.Add(scale);
             });
