@@ -8,6 +8,8 @@ namespace hmd_api.Model
         private int value;
         private static int min = 0;
         private static int max = 100;
+        
+        public string Name { get { return this.GetName(); } set {  } }
 
         public int Value { get { return this.value; } set { this.SetValue(value); } }
 
