@@ -3,3 +3,27 @@
     flex-direction: row;
     font-weight: bold;
 }
+
+li{
+    display: flex;
+    flex-direction: row;
+    list-style-type: none
+}
+
+ul{
+    padding-left: 0;
+}
+
+div.tracklist__track--name{
+    width: 200px;
+}
+
+div.tracklist__track--source{
+    width: 400px;
+    overflow: auto;
+    overflow-wrap: normal;
+}
+
+.tracklist__track--profile{
+    width: 200px;
+}

@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { TracksService } from './services/tracks/tracks.service';
-import { Track } from './model/track';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { TracklistComponent } from './components/tracklist/tracklist.component';
 
 @Component({
   selector: 'hmd-app',
@@ -8,25 +7,16 @@ import { Track } from './model/track';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent {
   public title : string = 'hmd';
-  public tracks : Track[];
 
-  constructor(private service : TracksService) {}
+  @ViewChild(TracklistComponent) tracklist : TracklistComponent;
 
   get getTracksMethod() {
-    return this.ngOnInit.bind(this);
+    return this.ngAfterViewInit.bind(this);
   }
 
-  getTracks() {
-    let response = this.service.getTracks();
-    return response;
-  }
-
-  ngOnInit(): void {
-    this.service.getTracks()
-        .subscribe(response => {
-          this.tracks = response;
-        });
+  ngAfterViewInit(): void {
+    this.tracklist.getTracks();
   }
 }
