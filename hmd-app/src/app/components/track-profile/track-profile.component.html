@@ -1,7 +1,3 @@
-<h3>{{ id }}</h3>
-
-<ul *ngIf="trackProfile">
-    <li *ngFor="let scale of scales">
-        <hmd-scale [scale]="scale"></hmd-scale>
-    </li>
-</ul>
+<td *ngFor="let scale of scales">
+    <hmd-scale [scale]="scale"></hmd-scale>
+</td>

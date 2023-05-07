@@ -1,5 +1,12 @@
-<div class="hmd-tracklist__header">
-    <div>Name</div>
-    <div>Source</div>
-    <div>Track Profile</div>
-</div>
+<table>
+    <tr class="hmd-tracklist__header">
+        <th *ngFor="let property of properties">{{ property }}</th>
+    </tr>
+    <tr *ngFor="let track of tracks">
+        <td class="tracklist__track--name"><hmd-updater [id]="track.id" property="name" [value]="track.name" type="text"></hmd-updater></td>
+        <td class="tracklist__track--source">{{ track.source }}</td>
+        <td *ngIf="ready()"><hmd-scale [scale]="getScale(track.trackProfile, 'Deep')"></hmd-scale></td>
+        <td *ngIf="ready()"><hmd-scale [scale]="getScale(track.trackProfile, 'Dream')"></hmd-scale></td>
+        <td *ngIf="ready()"><hmd-scale [scale]="getScale(track.trackProfile, 'Decay')"></hmd-scale></td>
+    </tr>
+</table>
