@@ -11,4 +11,8 @@ export class ScalesService extends Service {
   getScale(id : string) {
     return this.httpClient.get<Scale>(this.inUse + this.apiEndPoint + id);
   }
+
+  getScales() {
+    return this.httpClient.get<Scale[]>(this.inUse + this.apiEndPoint);
+  }
 }

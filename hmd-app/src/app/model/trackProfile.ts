@@ -1,4 +1,4 @@
-export interface TrackProfile {
+export class TrackProfile {
     id : string;
     scales : string[];
 }

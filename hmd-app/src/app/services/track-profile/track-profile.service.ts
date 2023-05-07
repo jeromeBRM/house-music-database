@@ -11,4 +11,8 @@ export class TrackProfileService extends Service {
   getTrackProfile(id : string) {
     return this.httpClient.get<TrackProfile>(this.inUse + this.apiEndPoint + id);
   }
+
+  getTrackProfiles() {
+    return this.httpClient.get<TrackProfile[]>(this.inUse + this.apiEndPoint);
+  }
 }

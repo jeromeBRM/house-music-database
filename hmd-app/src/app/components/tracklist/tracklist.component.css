@@ -1,29 +1,13 @@
-.hmd-tracklist__header {
-    display: flex;
-    flex-direction: row;
-    font-weight: bold;
+table {
+    border-collapse: collapse;
 }
-
-li{
-    display: flex;
-    flex-direction: row;
-    list-style-type: none
+  
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
 }
-
-ul{
-    padding-left: 0;
-}
-
-div.tracklist__track--name{
-    width: 200px;
-}
-
-div.tracklist__track--source{
-    width: 400px;
-    overflow: auto;
-    overflow-wrap: normal;
-}
-
-.tracklist__track--profile{
-    width: 200px;
+  
+tr:nth-child(even) {
+    background-color: #dddddd;
 }
