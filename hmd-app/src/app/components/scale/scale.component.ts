@@ -8,4 +8,6 @@ import { Scale } from '../../model/scale';
 })
 export class ScaleComponent {
   @Input() public scale : Scale;
+  
+  @Input() onUpdate : Function;
 }

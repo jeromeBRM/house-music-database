@@ -14,6 +14,8 @@ export class UpdaterComponent {
   @Input() public type : any;
   @Input() public value : any;
 
+  @Input() onUpdate : Function;
+
   constructor(private service : UpdaterService) {}
 
   async update() {
@@ -25,7 +27,7 @@ export class UpdaterComponent {
     formData.append('value', this.value);   
     
     let response = this.service.update(formData).subscribe(response => {
-
+      this.onUpdate();
     });
   }
 }

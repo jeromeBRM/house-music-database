@@ -12,7 +12,7 @@ import { ScalesService } from '../../services/scales/scales.service';
   styleUrls: ['./tracklist.component.css']
 })
 export class TracklistComponent {
-  public properties : string[] = ['Name', 'Source', 'Deep', 'Dream', 'Decay'];
+  public properties : string[] = ['Name', 'Source', 'Deep', 'Dream', 'Decay', 'Shade'];
 
   public tracks : Track[] = [];
   public trackProfiles : TrackProfile[] = [];
@@ -22,6 +22,10 @@ export class TracklistComponent {
 
   ready(){
     return this.tracks.length > 0 && this.trackProfiles.length > 0 && this.scales.length > 0;
+  }
+
+  get getTracksMethod() {
+    return this.getTracks.bind(this);
   }
 
   getTracks() {
@@ -51,5 +55,13 @@ export class TracklistComponent {
     });
 
     return this.scales.find(scale => trackProfile?.scales.includes(scale.id) && scale.name === name);
+  }
+
+  getScales(trackProfileId : string) : any {
+    let trackProfile = this.trackProfiles.find(tp => {
+      return tp.id === trackProfileId;
+    });
+
+    return this.scales.filter(scale => trackProfile?.scales.includes(scale.id));
   }
 }
