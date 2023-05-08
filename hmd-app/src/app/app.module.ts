@@ -10,6 +10,7 @@ import { UploadComponent } from './components/upload/upload.component';
 import { UpdaterComponent } from './components/updater/updater.component';
 import { TrackProfileComponent } from './components/track-profile/track-profile.component';
 import { ScaleComponent } from './components/scale/scale.component';
+import { ShadeComponent } from './components/shade/shade.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ScaleComponent } from './components/scale/scale.component';
     TracklistComponent,
     UpdaterComponent,
     TrackProfileComponent,
-    ScaleComponent
+    ScaleComponent,
+    ShadeComponent
   ],
   imports: [
     HttpClientModule,
