@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TracksService } from '../../services/tracks/tracks.service';
 import { TrackProfileService } from '../../services/track-profile/track-profile.service';
 import { Track } from '../../model/track';
 import { Scale } from '../../model/scale';
 import { TrackProfile } from '../../model/trackProfile';
 import { ScalesService } from '../../services/scales/scales.service';
+import { PlayerComponent } from '../player/player.component';
 
 @Component({
   selector: 'hmd-tracklist',
@@ -18,10 +19,16 @@ export class TracklistComponent {
   public trackProfiles : TrackProfile[] = [];
   public scales : Scale[] = [];
 
+  @Input() public player : PlayerComponent;
+
   constructor(private tracksService : TracksService, private trackProfileService : TrackProfileService, private scalesService : ScalesService) {}
 
   ready(){
     return this.tracks.length > 0 && this.trackProfiles.length > 0 && this.scales.length > 0;
+  }
+
+  selectTrack(track : Track) {
+    this.player.setTrack(track);
   }
 
   get getTracksMethod() {

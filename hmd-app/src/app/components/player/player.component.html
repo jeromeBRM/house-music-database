@@ -1,3 +1,4 @@
-<audio controls>
-    <source src="" type="audio/mpeg">
+<audio #audio controls>
+    <source *ngIf="inPlay" src="{{ 'http://localhost:80/uploads/' + inPlay.source }}" type="audio/mpeg">
 </audio>
+<h2>{{ inPlay ? inPlay.name : "No audio playing." }}</h2>

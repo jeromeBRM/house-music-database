@@ -2,7 +2,7 @@
     <tr class="hmd-tracklist__header">
         <th *ngFor="let property of properties">{{ property }}</th>
     </tr>
-    <tr *ngFor="let track of tracks">
+    <tr class="hmd-tracklist__track" *ngFor="let track of tracks" (click)="selectTrack(track)">
         <td class="tracklist__track--name"><hmd-updater [id]="track.id" property="name" [value]="track.name" type="text"></hmd-updater></td>
         <td class="tracklist__track--source">{{ track.source }}</td>
         <td *ngIf="ready()"><hmd-scale [scale]="getScale(track.trackProfile, 'Deep')" [onUpdate] = "getTracksMethod"></hmd-scale></td>

@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { TracklistComponent } from './components/tracklist/tracklist.component';
+import { PlayerComponent } from './components/player/player.component';
 
 @Component({
   selector: 'hmd-app',
@@ -11,6 +12,7 @@ export class AppComponent {
   public title : string = 'hmd';
 
   @ViewChild(TracklistComponent) tracklist : TracklistComponent;
+  @ViewChild(PlayerComponent) player : PlayerComponent;
 
   get getTracksMethod() {
     return this.ngAfterViewInit.bind(this);
@@ -18,5 +20,6 @@ export class AppComponent {
 
   ngAfterViewInit(): void {
     this.tracklist.getTracks();
+    this.tracklist.player = this.player;
   }
 }
