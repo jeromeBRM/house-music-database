@@ -1,1 +1,1 @@
-<input #input type="{{ type }}" value="{{ value }}" (change)="update()">
+<input #input type="{{ type }}" value="{{ value }}" (click)="$event.stopPropagation()" (change)="update()">

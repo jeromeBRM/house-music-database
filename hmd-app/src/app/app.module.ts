@@ -11,6 +11,7 @@ import { UpdaterComponent } from './components/updater/updater.component';
 import { TrackProfileComponent } from './components/track-profile/track-profile.component';
 import { ScaleComponent } from './components/scale/scale.component';
 import { ShadeComponent } from './components/shade/shade.component';
+import { PlayerComponent } from './components/player/player.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ShadeComponent } from './components/shade/shade.component';
     UpdaterComponent,
     TrackProfileComponent,
     ScaleComponent,
-    ShadeComponent
+    ShadeComponent,
+    PlayerComponent
   ],
   imports: [
     HttpClientModule,

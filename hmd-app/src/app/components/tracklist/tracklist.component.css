@@ -11,3 +11,15 @@ td, th {
 tr:nth-child(even) {
     background-color: #dddddd;
 }
+
+tr.hmd-tracklist__track {
+    cursor: pointer;
+}
+
+tr.hmd-tracklist__track:hover {
+    background-color: grey;
+}
+
+tr.hmd-tracklist__track:active {
+    background-color: yellow;
+}
