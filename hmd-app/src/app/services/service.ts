@@ -10,7 +10,7 @@ export abstract class Service {
     'development' : 'http://localhost/',
     'production' : 'http://90.54.173.2/'
   }
-  protected inUse : string;
+  public inUse : string;
 
   constructor(protected httpClient : HttpClient) {
     this.inUse = this.apiUrls['development'];
